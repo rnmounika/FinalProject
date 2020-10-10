@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+
 
 @Component({
   selector: 'pb-hero',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeroComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public data: DataService) { }
   ngOnInit(): void {
+
   }
 
 }

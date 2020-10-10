@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Chart } from 'chart.js';
 import * as d3 from 'd3';
+import { DataService } from '../data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'pb-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent  {
+export class HomepageComponent implements OnInit  {
 
 
   public dataSource = {
@@ -32,14 +34,7 @@ export class HomepageComponent  {
     ]
 };
 
-//////
-private data = [
-  {"Framework": "Vue", "Stars": "166443"},
-  {"Framework": "React", "Stars": "150793"},
-  {"Framework": "Angular", "Stars": "62342"},
-  {"Framework": "Backbone", "Stars": "27647"},
-  {"Framework": "Ember", "Stars": "21471"},
-];
+
 private svg;
 private margin = 50;
 private width = 750;
@@ -49,29 +44,27 @@ private radius = Math.min(this.width, this.height) / 2 - this.margin;
 private colors;
 private jsonData=[];
 
-/////
+  constructor(private http: HttpClient, public data: DataService) { }
+  ngOnInit(): void {
 
-  constructor(private http: HttpClient) { }
+  }
 
-  ngAfterViewInit(): void {
-    this.http.get('http://localhost:3000/budget')
+   ngAfterViewInit(): void {
+
+     this.data.getBudgetData()
     .subscribe((res: any) => {
+
       for ( let i = 0 ; i < res.myBudget.length; i++)
       {
           this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
           this.dataSource.labels[i] = res.myBudget[i].title;
+          var thisData={
+            "label": this.dataSource.labels[i],
+            "value": this.dataSource.datasets[0].data[i]
+          }
+          this.jsonData.push(thisData);
 
       }
-
-      for(let i=0; i< this.dataSource.labels.length ; i++ )
-      {
-        var thisData={
-        "label": this.dataSource.labels[i],
-        "value": this.dataSource.datasets[0].data[i]
-      }
-
-       this.jsonData.push(thisData);
-       }
       console.log(this.jsonData);
       this.createChart();
       this.createSvg();
@@ -113,6 +106,7 @@ private createColors(): void {
   '#ff8c00',
   '#6b486b']);
 }
+
 private drawChart(): void {
  const pie = d3.pie<any>().value(function(d) { return  d.value; });
   this.svg
