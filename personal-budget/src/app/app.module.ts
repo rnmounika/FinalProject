@@ -14,6 +14,13 @@ import { P404Component } from './p404/p404.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ContactComponent } from './contact/contact.component';
 import { DataService } from './data.service';
+import { GlobalStorageService } from './global-storage.service';
+import { SuccessfulComponent } from './successful/successful.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LogoutComponent } from './logout/logout.component';
+
 
 @NgModule({
   declarations: [
@@ -27,15 +34,29 @@ import { DataService } from './data.service';
     LoginComponent,
     P404Component,
     BreadcrumbsComponent,
-    ContactComponent
+    ContactComponent,
+    SuccessfulComponent,
+    RegisterComponent,
+    DashboardComponent,
+    LogoutComponent
+  ],
+  entryComponents: [
+    LoginComponent,
+    RegisterComponent,
+   DashboardComponent,
+   LogoutComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+        ReactiveFormsModule,
+
       ],
   providers: [
-    DataService
+    DataService,
+    GlobalStorageService
   ],
   bootstrap: [AppComponent]
 })

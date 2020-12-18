@@ -8,7 +8,7 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
- html {
+html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
@@ -174,7 +174,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -184,7 +185,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 
@@ -348,15 +350,6 @@ template {
   display: none;
 }
 
-
-
-
-
-
-
-
-
-
 * {
   box-sizing: border-box;
 }
@@ -376,8 +369,8 @@ body {
 div.hero {
   height: 350px;
   background-color: #b4c6f0;
-  background-image: url('/assets/bg.png');
-  nav-index:-1;
+  background-image: url("/assets/bg.png");
+  nav-index: -1;
   background-size: 400px;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -392,7 +385,7 @@ div.hero h2 {
 
 div.hero h1 {
   color: #fff;
-  font-size: 4.2em;
+  font-size: 2.4em;
   margin-bottom: 20px;
 }
 
@@ -427,11 +420,14 @@ div.hero h2 {
   text-align: justify;
   margin: 20px;
 }
-.footerClass{
+.footerClass {
+  // position: fixed;
+  width: 100%;
   text-align: center;
-  height: 50px;
+  height: 30px;
+  bottom: 0;
   background-color: #b4c6f0;
-  padding: 40px;
+  padding: 30px;
 }
 
 aside {
@@ -445,35 +441,36 @@ aside {
 }
 
 a.skip-main {
-  left:-999px;
-  position:absolute;
-  top:auto;
-  width:1px;
-  height:1px;
-   overflow:hidden;
-  z-index:-999;
+  left: -999px;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -999;
 }
 
-header{
+header {
   text-align: right;
   font-style: italic;
 }
 
-a.skip-main:focus, a.skip-main:active {
+a.skip-main:focus,
+a.skip-main:active {
   color: #fff;
-  background-color:#000;
+  background-color: #000;
   left: auto;
   top: auto;
   width: 30%;
   height: auto;
-  overflow:auto;
+  overflow: auto;
   margin: 10px 35%;
-  padding:5px;
+  padding: 5px;
   border-radius: 15px;
-  border:4px solid yellow;
-  text-align:center;
-  font-size:1.2em;
-  z-index:999;
+  border: 4px solid yellow;
+  text-align: center;
+  font-size: 1.2em;
+  z-index: 999;
 }
 
 /* This is DJ*/
@@ -485,23 +482,23 @@ a.skip-main:focus, a.skip-main:active {
 }
 
 svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-path.slice{
-    stroke-width:2px;
+path.slice {
+  stroke-width: 2px;
 }
 
-polyline{
-    opacity: .3;
-    stroke: black;
-    stroke-width: 2px;
-    fill: none;
+polyline {
+  opacity: 0.3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
 }
 
 @media screen and (min-width: 768px) {
   .container .div.text-box {
-      margin: 10px;
+    margin: 10px;
   }
 }

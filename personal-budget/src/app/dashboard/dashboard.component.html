@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <!-- This is an SEO Change For responsive site-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- This is an SEO Change that helps webpage to appear in search results-->
+    <meta name="description" content="Personal Budget monitoring application.">
+    <!-- This is an SEO Change that helps to follow and index the web page -->
+    <meta name=”robots” content="index, follow">
+    <!-- This is an SEO Change open graph meta tags to promote-->
+    <meta property="og:type" content="article" />
+    <title>Personal Budget</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div  class="row" style="height:60px;">
+   <h2 class="center">Add Budget</h2>
+   <!-- <button type=button class="btn btn-primary"  (click)="clickMethod()">Delete me</button> -->
+  </div>
+    <div  class="row center" style="padding-left: 210px;" >
+      <div>
+        <input type="text" [(ngModel)]="title" placeholder="Title" />
+        <input type="text" [(ngModel)]="actualValue" placeholder="Actual Value" />
+        <input type="text" [(ngModel)]="expectedValue" placeholder="Expected Value" />
+
+        <button (click)="buttonClicked()">Add</button>
+      </div>
+      <div *ngIf="existingItem">Item is already added</div>
+      <div *ngIf="missingValues">Please fill teh values correctly</div>
+  </div>
+
+         <div class="row">
+      <table class="table table-striped center" style=" width:700px;padding: 15px;margin-bottom: 25px;">
+        <thead>
+            <tr>
+
+                <th>Title</th>
+                <th>Actual Value</th>
+                <th>Expected Value</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of bud; index as i;">
+
+                <td>{{item.title}}</td>
+                <!-- <td>{{ item.value }}</td>
+                <td>{{ item.expectedBudget }}</td> -->
+                <!-- <td>
+                  <span *ngIf="editedIndex !== i">{{item.title}}</span>
+                  <input type="text" class="form-control" [(ngModel)]="item.title" value={{item.title}} *ngIf="editedIndex === i">
+
+                </td> -->
+                <td>
+                  <span *ngIf="editedIndex !== i">{{item.value}}</span>
+                  <input type="text" class="form-control" [(ngModel)]="item.value" value={{item.value}} *ngIf="editedIndex === i">
+
+                </td>
+                <td>
+                  <span *ngIf="editedIndex !== i">{{item.expectedBudget}}</span>
+                  <input type="text" class="form-control" [(ngModel)]="item.expectedBudget" value={{item.expectedBudget}} *ngIf="editedIndex === i">
+
+                </td>
+
+
+                     <td style="width: 200px;">
+                  <button type="button" (click)=updateMethod(i) *ngIf="editedIndex !== i" >Update</button>
+                  <button  type="button" (click)=updateValueToDB(item) *ngIf="editedIndex === i">Save</button>
+                  <button  type="button" (click)=cancel() *ngIf="editedIndex === i">Cancel</button>
+                  <button type="button" (click)="deleteBudget(item)" *ngIf="editedIndex !== i" >Delete</button>
+
+                </td>
+
+                <!-- <td>
+                  <button *ngIf="enableEdit && enableEditIndex == i" (click)="enableEdit=false" class="btn page-secondary-action-btn" ng-click="cancel()">Cancel</button>
+                  <button *ngIf="enableEdit && enableEditIndex == i" id="saveBtn" class="btn page-primary-action-btn" (click)="saveSegment()" type="submit">Save</button>
+                  <a  class="table-row-action edit-action" *ngIf="!enableEdit" (click)="enableEditMethod($event, i)">
+                    edit
+                </a>
+              </td> -->
+               <!-- <td ng-click="editUser(item)">
+                  <span *ngif="editMode">{{item.title}}</span>
+                  <input type="text" name="title" ng-show="editMode" class="form-control" ng-model="item.title" placeholder="Title" required="" />
+                </td>
+                <td ng-click="editUser(item)">
+                  <span ng-hide="editMode">{{item.value}}</span>
+                  <input type="text" ng-show="editMode" name="lastName" class="form-control" ng-model="item.value" placeholder="Actual Value" required="" />
+                </td>
+                <td ng-click="editUser(item)">
+                  <span ng-hide="editMode">{{ item.expectedBudget}}</span>
+                  <input type="text" ng-show="editMode" name="email" class="form-control" ng-model=" item.expectedBudget" placeholder="Expected Value" required="" />
+                </td>
+                <td>
+                  <a href="" ng-hide="editMode" ng-click="editUser(user)">Edit</a>
+                  <a href="" ng-hide="editMode" ng-click="deleteBudget(item)">Delete</a>
+                  <a href="" ng-show="editMode" ng-click="saveUser(user)">Update</a>
+                  <a href="" ng-show="editMode" ng-click="cancel(user)">Cancel</a> -->
+                   <!-- <button type="button"  >Update</button>
+                    <button type="button" (click)="deleteBudget(item)">Delete</button> -->
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    </div>
+    <div class="row" style="height: 400px; padding: 15px;margin-bottom: 15px;">
+      <div class="col-sm-6">
+         <div>
+          <p>
+            <canvas id="myChart" width="600" height="200"></canvas>
+
+        </p>
+      </div>
+
+      </div>
+      <div class="col-sm-6">
+        <div class="barGraph">
+          <canvas id="densityChart" ></canvas>
+        </div>
+        </div>
+          </div>
+
+    <!-- <h2>DJ3 Chart</h2>
+    <div id="viz_area"></div>
+    <svg width="300" height="1"></svg> -->
+  </div>
+<script>
+//  function clickMethod() {
+//   if(confirm("Are you sure to delete ")) {
+//     console.log("Implement delete functionality here");
+//   }
+// }
+</script>
+  </body>
+  </html>
+
+
+

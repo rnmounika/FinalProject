@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'pb-menu',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public data :DataService) { }
+//  lin=false;
   ngOnInit(): void {
+    // this.lin = this.data.loggedIn
   }
 
+  logout() {
+    this.data.logout();
+   }
 }
